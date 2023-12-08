@@ -65,4 +65,27 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public String removeProduct(Long id) {
+        productRepository.deleteById(id);
+        return "Product " + id +" was removed!"; 
+    }
+
+    public Product updateProduct(Long id, Product product) {
+        Product persisted_product = productRepository.findById(id).get();
+        Product new_product = Product.builder()
+            .id(persisted_product.getId())
+            .title(product.getTitle())
+            .price(product.getPrice())
+            .description(product.getDescription())
+            .category(product.getCategory())
+            .image(product.getImage())
+            .rating(product.getRating())
+            .build();
+        
+        productRepository.deleteById(id);
+
+        return productRepository.save(new_product);
+
+    }
+
 }
