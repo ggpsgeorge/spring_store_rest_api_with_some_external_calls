@@ -12,6 +12,8 @@ public class ProductService {
 
     @Autowired
     RestTemplate restTemplate ;
+    @Autowired
+    ProductRepository productRepository;
 
     public Product callFakeApiFindProduct(Long id) {
         String url = "https://fakestoreapi.com/products/" + id;
@@ -49,6 +51,10 @@ public class ProductService {
             all_products.add(product);
         }
         return all_products;
+    }
+
+    public List<Product> addProducts(List<Product> products) {
+        return productRepository.saveAll(products);
     }
 
 }

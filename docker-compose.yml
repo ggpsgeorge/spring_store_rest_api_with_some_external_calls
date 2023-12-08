@@ -2,21 +2,21 @@
 version: '3.1'
 
 services:
-
+  
   db:
     image: postgres:16.0
     restart: always
+    container_name: postgres_store_db
     environment:
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: store-db
+      POSTGRES_DB: storedb
     ports:
       - 5432:5432
 
   adminer:
     image: adminer
     restart: always
-    depends_on:
-      - db
+    container_name: postgres_store
     ports:
       - 8080:8080
