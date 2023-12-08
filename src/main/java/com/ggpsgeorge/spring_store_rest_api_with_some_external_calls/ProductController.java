@@ -18,12 +18,12 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/external/product/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id){
+    public ResponseEntity<Product> getExternalProductById(@PathVariable Long id){
         return new ResponseEntity<Product>(productService.callFakeApiFindProduct(id), HttpStatus.OK);
     }
 
     @GetMapping("/external/products")
-    public ResponseEntity<List<Product>> getAllProducts(){
+    public ResponseEntity<List<Product>> getAllExternalProducts(){
         return new ResponseEntity<List<Product>>(productService.callFakeApiFindAllProducts(), HttpStatus.OK);
     }
 
@@ -31,5 +31,10 @@ public class ProductController {
     public ResponseEntity<List<Product>> saveProducts(){
         List<Product> products = productService.callFakeApiFindAllProducts();
         return ResponseEntity.ok().body(productService.addProducts(products));
+    }
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable Long id){
+        return ResponseEntity.ok().body(productService.findProduct(id));
     }
 }
